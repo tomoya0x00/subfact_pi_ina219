@@ -5,10 +5,6 @@ import time
 
 ina = INA219()
 
-print "Shunt   : %.3f mV" % ina.getShuntVoltage_mV()
-print "Bus     : %.3f V" % ina.getBusVoltage_V()
-print "Current : %.3f mA" % ina.getCurrent_mA()
-
 print "Time,Shunt[mV],Bus[V],Current[mA]"
 
 while True:
