@@ -9,8 +9,8 @@ print "Shunt   : %.3f mV" % ina.getShuntVoltage_mV()
 print "Bus     : %.3f V" % ina.getBusVoltage_V()
 print "Current : %.3f mA" % ina.getCurrent_mA()
 
-print "Shun[mV],Bus[V],Current[mA],Power[mW]"
+print "Time,Shunt[mV],Bus[V],Current[mA]"
 
 while True:
-    print "%.3f,%.3f,%.3f,%.3f" % ( ina.getShuntVoltage_mV(), ina.getBusVoltage_V(), ina.getCurrent_mA(), ina.getPower_mW() )
+    print "%.3f,%.3f,%.3f,%.3f" % ( time.time(), ina.getShuntVoltage_mV(), ina.getBusVoltage_V(), ina.getCurrent_mA())
     time.sleep(0.001)
