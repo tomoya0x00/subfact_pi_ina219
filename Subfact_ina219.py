@@ -100,7 +100,7 @@ class INA219:
 		self.address = address
 		self.debug = debug
 		
-		self.ina219SetCalibration_32V_2A()
+		self.ina219SetCalibration()
 	
 	def twosToInt(self, val, len):
 		# Convert twos compliment to integer
@@ -110,7 +110,7 @@ class INA219:
 
 		return val
 
-	def ina219SetCalibration_32V_2A(self):
+	def ina219SetCalibration(self):
 		self.ina219_currentDivider_mA = 10  # Current LSB = 100uA per bit (1000/100 = 10)
 		self.ina219_powerDivider_mW = 2     # Power LSB = 1mW per bit (2/1)
 		
@@ -119,8 +119,8 @@ class INA219:
 		self.i2c.writeList(self.__INA219_REG_CALIBRATION, bytes)
 		
 		# Set Config register to take into account the settings above
-		config = self.__INA219_CONFIG_BVOLTAGERANGE_32V | \
-				 self.__INA219_CONFIG_GAIN_8_320MV | \
+		config = self.__INA219_CONFIG_BVOLTAGERANGE_16V | \
+				 self.__INA219_CONFIG_GAIN_1_40MV | \
 				 self.__INA219_CONFIG_BADCRES_12BIT | \
 				 self.__INA219_CONFIG_SADCRES_12BIT_1S_532US | \
 				 self.__INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS
@@ -171,10 +171,10 @@ class INA219:
 		
 	def getCurrent_mA(self):
 		valueDec = self.getCurrent_raw()
-		valueDec /= self.ina219_currentDivider_mA
+		valueDec /= float(self.ina219_currentDivider_mA)
 		return valueDec
 		
 	def getPower_mW(self):
 		valueDec = self.getPower_raw()
-		valueDec /= self.ina219_powerDivider_mW
+		valueDec /= float(self.ina219_powerDivider_mW)
 		return valueDec
